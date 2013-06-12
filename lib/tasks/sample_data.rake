@@ -6,6 +6,7 @@ namespace :db do
                  password: "foobar",
                  password_confirmation: "foobar")
     admin.toggle!(:admin)
+
     
     99.times do |n|
       name  = Faker::Name.name
@@ -15,6 +16,11 @@ namespace :db do
                    email: email,
                    password: password,
                    password_confirmation: password)
+
+    users = User.all(limit: 6)
+    50.times do
+      content = Faker::Lorem.sentence(5)
+      users.each { |user| user.posts.create!(content: content) }
     end
   end
 end
